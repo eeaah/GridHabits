@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+	--background: #181419;
+	--foreground: #251f26;
+	--accent: #06d6a0;
+	--text: #f9f9f9ec;
+	--subtext: #cccccc;
+	background-color: var(--background);
+	font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.navbar {
+	background-color: var(--foreground);
+	color: var(--text);
+	position: sticky;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 2.5rem;
+	top: 0;
+	padding: 0.5rem;
+	margin: 0;
+}
+
+.navbar_links {
+	flex-basis: 25rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.nav_item {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	font-size: 1.25rem;
+	cursor: pointer;
+}
+
+.nav_home {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--text);
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.logo {
+	width: 2rem;
+	padding-right: 0.5rem;
+}
+
+.profile_icon {
+	width: 2.5rem;
+	height: auto;
+	background: none;
+	border: none;
+	border-radius: 25%;
+}

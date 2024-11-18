@@ -1,0 +1,17 @@
+.flex {
+	margin-top: 10rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header {
+	color: var(--text);
+	font-size: 8rem;
+	
+}
+
+.logo {
+	width: 8rem;
+	height: auto;
+}
