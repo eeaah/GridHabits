@@ -5,7 +5,7 @@
 	--foreground: #251f26;
 	--accent: #06d6a0;
 	--text: #f9f9f9ec;
-	--subtext: #cccccc;
+	--subtext: #aaaaaa;
 	background-color: var(--background);
 	font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

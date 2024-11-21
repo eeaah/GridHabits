@@ -37,14 +37,14 @@ const getColor = (completion: number, goal: number) => {
 const SVGGrid = ({
 	days,
 	habit,
-	endDate
+	endDate,
 }: {
 	days: { [key: string]: habitEntry };
 	habit: habit;
 	endDate: Date;
 }) => {
 	const numRows = 7;
-	const numCols = 53;
+	const numCols = 54;
 	const cellSize = 16;
 	const offsetSize = cellSize;
 	const gap = 2;
@@ -75,7 +75,7 @@ const SVGGrid = ({
 			width="100%"
 			height="100%"
 			viewBox={`0 -15 ${
-				(numCols + 1) * (cellSize + gap) + 12 * offsetSize
+				numCols * (cellSize + gap) + 13 * offsetSize
 			} ${numRows * (cellSize + gap) + (20 + 4) * 2}`}
 			// width: (cols + 1 width) + offset width + max font width correction
 			// height: rows height + (font height + font spacing) * 2
@@ -96,8 +96,10 @@ const SVGGrid = ({
 							currentMonth = currentDate.getMonth();
 							monthOffset += offsetSize;
 							let correctOffset = 0;
-							if (row > 0) {
+							if (row > 0 && col < numCols - 3) {
 								correctOffset = gap + cellSize;
+							} else if (col >= numCols - 3) {
+								correctOffset = -1 * (gap + cellSize);
 							}
 							monthLabels.push({
 								month: currentDate.toLocaleString("default", {
@@ -162,19 +164,67 @@ const SVGGrid = ({
 	);
 };
 
-export default function Grid({ habit, endDate, details }: { habit: habit, endDate: Date, details: any }) {
+const Statistics = ({ habit }: { habit: habit }) => {
+	const entries = habit.habit_entries;
+	let maxStreak = 0;
+	let totalCompletion = 0;
+	let completedDays = 0;
+	let activeDays = entries.length;
+	let currentStreak = 0;
+	let prevDate = new Date();
+
+	for (let entry of entries) {
+		totalCompletion += entry.completion;
+		if (entry.completion < habit.goal) {
+			currentStreak = 0;
+			prevDate = entry.entry_date;
+			continue;
+		}
+		completedDays++;
+		if (86400000 >= entry.entry_date.getTime() - prevDate.getTime())
+			maxStreak = Math.max(maxStreak, ++currentStreak);
+		else currentStreak = 1;
+		prevDate = entry.entry_date;
+	}
+	return (
+		<div className={styles.flex}>
+			<p>
+				Total completion:{" "}
+				<span className={styles.number}>{totalCompletion}</span>
+			</p>
+			<p>
+				Completed days:{" "}
+				<span className={styles.number}>{completedDays}</span>
+			</p>
+			<p>
+				Max streak: <span className={styles.number}>{maxStreak}</span>
+			</p>
+			<p>
+				Active days: <span className={styles.number}>{activeDays}</span>
+			</p>
+		</div>
+	);
+};
+
+export default function Grid({
+	habit,
+	endDate,
+}: {
+	habit: habit;
+	endDate: Date;
+}) {
 	let days: { [key: string]: habitEntry } = {};
 	for (const item of habit.habit_entries) {
 		days[item.entry_date.toISOString().slice(0, 10)] = item;
 	}
 
 	return (
-		<>
+		<div style={{ width: "100%" }}>
 			{/* <div className={styles.container}>{days}</div> */}
+			<Statistics habit={habit} />
 			<div className={styles.container}>
-				<div className={styles.flex}>hi</div>
 				<SVGGrid days={days} habit={habit} endDate={endDate} />
 			</div>
-		</>
+		</div>
 	);
 }

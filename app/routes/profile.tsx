@@ -35,7 +35,11 @@ export const loader = async () => {
 			completion: parseFloat(prev.completion),
 			entry_date: new Date(prev.entry_date),
 		}));
-
+		habit_entries.sort((a, b) => {
+			if (a.entry_date < b.entry_date) return -1;
+			if (a.entry_date > b.entry_date) return 1;
+			return 0;
+		});
 		habit.habit_entries = habit_entries;
 		for (let entry of habit.habit_entries) {
 			maxCompletion = Math.max(maxCompletion, entry.completion);
@@ -61,6 +65,7 @@ export const loader = async () => {
 		if (habit.goal === -1) {
 			habit.goal = maxCompletion;
 		}
+		habit;
 	}
 	const overview: habit = {
 		habit_id: 0,
@@ -68,7 +73,11 @@ export const loader = async () => {
 		title: "overview",
 		goal: habits.length,
 		color_id: -1,
-		habit_entries: Object.values(overviewEntries),
+		habit_entries: Object.values(overviewEntries).sort((a, b) => {
+			if (a.entry_date < b.entry_date) return -1;
+			if (a.entry_date > b.entry_date) return 1;
+			return 0;
+		}),
 	};
 	console.log(habits);
 	return json({ habits: habits, overview: overview });
@@ -95,29 +104,32 @@ export default function Profile() {
 		})),
 	};
 	const endDate = new Date();
-	const details = {
-		completion: 0,
-		activeDays: 0,
-		maxStreak: 0,
-	};
 
 	return (
 		<div className={styles.main}>
 			<div className={styles.sidebar}>Overview</div>
 			<div className={styles.main_container}>
-				<h1 className={styles.name}>Profile name</h1>
-				<div className={styles.main_flex}>
-					<img
-						src="https://placecats.com/512/512"
-						className={styles.profile_icon}
-					/>
-					<Grid habit={overview} details={details} endDate={endDate} />
+				<div className={styles.container}>
+					<h1 className={styles.name}>Profile name</h1>
+					<div className={styles.main_flex}>
+						<img
+							src="https://placecats.com/512/512"
+							className={styles.profile_icon}
+						/>
+						<Grid habit={overview} endDate={endDate} />
+					</div>
 				</div>
-				<div>
 					{habits.map((habit) => (
-						<Grid habit={habit} details={details} endDate={endDate} />
+						<div className={styles.container}>
+							<h1 className={styles.habitTitle}>{habit.title}</h1>
+							<div className={styles.main_flex}>
+								<div
+									className={styles.profile_icon}
+								/>
+								<Grid habit={habit} endDate={endDate} />
+							</div>
+						</div>
 					))}
-				</div>
 			</div>
 		</div>
 	);

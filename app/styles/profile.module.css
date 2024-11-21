@@ -9,13 +9,17 @@
 }
 
 .main_container {
-	background-color: var(--foreground);
-	padding: 2rem;
-	border-radius: 1rem;
 	max-width: 60rem;
 	flex: 1;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.container {
+	background-color: var(--foreground);
+	padding: 2rem;
+	border-radius: 1rem;
+	margin: 0 0 1rem 0;
 }
 
 .main_flex {
@@ -29,7 +33,7 @@
 	border: none;
 	border-radius: 25%;
 	width: 8rem;
-	height: auto;
+	height: 8rem;
 	padding-right: 1rem;
 }
 
@@ -50,4 +54,8 @@
 	color: var(--text);
 	padding: 1rem;
 	flex: 0 0 auto;
+}
+
+.habitTitle {
+	color: var(--text);
 }

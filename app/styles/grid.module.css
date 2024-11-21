@@ -16,5 +16,11 @@
 .flex {
 	display: flex;
 	color: var(--subtext);
-	font-size: 1.25rem;
+	font-size: .75rem;
+	justify-content: space-around;
+	margin: .5rem 0;
+}
+
+.number {
+	color: var(--text);
 }
