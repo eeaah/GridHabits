@@ -28,6 +28,13 @@
 	align-items: center;
 }
 
+.horizontal_flex {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
 .profile_icon {
 	background: none;
 	border: none;

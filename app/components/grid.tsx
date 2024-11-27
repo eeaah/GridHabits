@@ -74,9 +74,9 @@ const SVGGrid = ({
 		<svg
 			width="100%"
 			height="100%"
-			viewBox={`0 -15 ${
-				numCols * (cellSize + gap) + 13 * offsetSize
-			} ${numRows * (cellSize + gap) + (20 + 4) * 2}`}
+			viewBox={`0 -15 ${numCols * (cellSize + gap) + 13 * offsetSize} ${
+				numRows * (cellSize + gap) + (20 + 4) * 2
+			}`}
 			// width: (cols + 1 width) + offset width + max font width correction
 			// height: rows height + (font height + font spacing) * 2
 			xmlns="http://www.w3.org/2000/svg"
@@ -197,10 +197,10 @@ const Statistics = ({ habit }: { habit: habit }) => {
 				<span className={styles.number}>{completedDays}</span>
 			</p>
 			<p>
-				Max streak: <span className={styles.number}>{maxStreak}</span>
+				Active days: <span className={styles.number}>{activeDays}</span>
 			</p>
 			<p>
-				Active days: <span className={styles.number}>{activeDays}</span>
+				Highest streak: <span className={styles.number}>{maxStreak}</span>
 			</p>
 		</div>
 	);

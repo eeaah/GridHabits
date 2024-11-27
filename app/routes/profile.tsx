@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import postgres from "../../db.server.js";
+import iconPlus from "../assets/plus.svg";
 import Grid from "../components/grid";
 import styles from "../styles/profile.module.css";
 import {
@@ -106,31 +107,34 @@ export default function Profile() {
 	const endDate = new Date();
 
 	return (
-		<div className={styles.main}>
-			<div className={styles.sidebar}>Overview</div>
-			<div className={styles.main_container}>
-				<div className={styles.container}>
-					<h1 className={styles.name}>Profile name</h1>
-					<div className={styles.main_flex}>
-						<img
-							src="https://placecats.com/512/512"
-							className={styles.profile_icon}
-						/>
-						<Grid habit={overview} endDate={endDate} />
+		<>
+			<div className={styles.main}>
+				<div className={styles.sidebar}>Overview</div>
+				<div className={styles.main_container}>
+					<div className={styles.container}>
+						<h1 className={styles.name}>Profile name</h1>
+						<div className={styles.main_flex}>
+							<img
+								src="https://placecats.com/512/512"
+								className={styles.profile_icon}
+							/>
+							<Grid habit={overview} endDate={endDate} />
+						</div>
 					</div>
-				</div>
 					{habits.map((habit) => (
 						<div className={styles.container}>
 							<h1 className={styles.habitTitle}>{habit.title}</h1>
-							<div className={styles.main_flex}>
-								<div
-									className={styles.profile_icon}
-								/>
-								<Grid habit={habit} endDate={endDate} />
-							</div>
+							<Grid habit={habit} endDate={endDate} />
 						</div>
 					))}
+					<div
+						className={`${styles.container} ${styles.horizontal_flex}`}
+					>
+						<img src={iconPlus} />
+					</div>
+				</div>
 			</div>
-		</div>
+			<Outlet />
+		</>
 	);
 }
