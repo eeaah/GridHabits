@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
 	user_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	firebase_uid varchar(255) UNIQUE;
 	username varchar(20) NOT NULL UNIQUE,
 	email varchar(255) NOT NULL UNIQUE,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
